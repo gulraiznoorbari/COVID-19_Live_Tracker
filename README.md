@@ -4,8 +4,8 @@
 
 ## Functionalities
 
--   [x]
--   [x]
+-   [x] User Authentication
+-   [x] User Authorization
 
 ## Technologies Used
 
