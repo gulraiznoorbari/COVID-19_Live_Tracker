@@ -2,12 +2,12 @@
 <h1>COVID-19 Tracker</h1>
 </div>
 
-### Functionalities
+## Functionalities
 
--   [x]
--   [x]
+[x]
+[x]
 
-### Technologies Used
+## Technologies Used
 
 -   [React](https://reactjs.org/)
 -   [Material UI](https://mui.com/)
@@ -15,7 +15,7 @@
 -   [react-chartjs-2](https://react-chartjs-2.netlify.app/) (React components for Chart.js)
 -   [React Leaflet](https://react-leaflet.js.org/) (React components for Leaflet maps)
 
-### Installation
+## Installation
 
 ```
 git clone https://github.com/gulraiznoorbari/COVID-19_Tracker.git
@@ -24,13 +24,13 @@ npm install
 npm start
 ```
 
-### For Production Build
+## For Production Build
 
 ```
 npm build
 ```
 
-### Author
+## Author
 
 You can get in touch with me on my LinkedIn Profile:
 
