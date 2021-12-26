@@ -1,29 +1,36 @@
 <div align="center">
-<h1>React Webpack Boilerplate</h1>
-<img width="400px" height="150px" src="./logo.jpg">
+<h1>COVID-19 Tracker</h1>
 </div>
 
-## Functionalities
+### Functionalities
 
--   [x] No interaction with the CLI needed
--   [x] Live Hot Reload
+-   [x]
+-   [x]
 
-## INSTALLATION
+### Technologies Used
+
+-   [React](https://reactjs.org/)
+-   [Material UI](https://mui.com/)
+-   [disease.sh](https://disease.sh/) (Open Disease Data API)
+-   [react-chartjs-2](https://react-chartjs-2.netlify.app/) (React components for Chart.js)
+-   [React Leaflet](https://react-leaflet.js.org/) (React components for Leaflet maps)
+
+### Installation
 
 ```
-git clone https://github.com/gulraiznoorbari/React-Webpack-Boilerplate.git
-cd React-webpack-boilerplate
+git clone https://github.com/gulraiznoorbari/COVID-19_Tracker.git
+cd COVID-19_Tracker
 npm install
 npm start
 ```
 
-## For Production Build
+### For Production Build
 
 ```
 npm build
 ```
 
-## Author
+### Author
 
 You can get in touch with me on my LinkedIn Profile:
 
