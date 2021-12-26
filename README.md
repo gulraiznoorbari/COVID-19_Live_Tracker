@@ -4,8 +4,8 @@
 
 ## Functionalities
 
-[x]
-[x]
+-   [x]
+-   [x]
 
 ## Technologies Used
 
