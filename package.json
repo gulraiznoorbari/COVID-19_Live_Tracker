@@ -13,7 +13,10 @@
     "author": "Gulraiz Noor Bari",
     "license": "GNU General Public License 3.0",
     "dependencies": {
+        "@emotion/react": "^11.7.1",
+        "@emotion/styled": "^11.6.0",
         "@mui/material": "^5.2.5",
+        "axios": "^0.24.0",
         "css-loader": "^6.5.0",
         "react": "^17.0.2",
         "react-dom": "^17.0.2",
