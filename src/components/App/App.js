@@ -3,6 +3,9 @@ import { FormControl, MenuItem, Select, Card, CardContent } from "@mui/material"
 import axios from "axios";
 import InfoBox from "../InfoBox/InfoBox";
 import Map from "../Map/Map";
+import Table from "../Table/Table";
+import LineGraph from "../LineGraph/LineGraph";
+import { sortData } from "../Utils/util";
 import "./App.css";
 
 /* 
@@ -15,6 +18,7 @@ function App() {
     const [countries, setCountries] = useState([]);
     const [country, setCountry] = useState("worldwide");
     const [countryInfo, setCountryInfo] = useState({});
+    const [tableData, setTableData] = useState([]);
 
     useEffect(() => {
         const getDataOnFirstLoad = async () => {
@@ -34,6 +38,9 @@ function App() {
                         value: country.countryInfo.iso3,
                     };
                 });
+
+                const sortedData = sortData(response.data);
+                setTableData(sortedData);
                 setCountries(countries);
             } catch (error) {
                 console.log(error);
@@ -100,7 +107,9 @@ function App() {
             <Card className="app__rightCol">
                 <CardContent>
                     <h3>Live Cases by Country</h3>
+                    <Table countries={tableData} />
                     <h3>Worldwide new cases</h3>
+                    <LineGraph />
                 </CardContent>
             </Card>
         </div>
