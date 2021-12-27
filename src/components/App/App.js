@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { FormControl, MenuItem, Select } from "@mui/material";
-import "./App.css";
+import { FormControl, MenuItem, Select, Card, CardContent } from "@mui/material";
 import axios from "axios";
+import InfoBox from "../InfoBox/InfoBox";
+import Map from "../Map/Map";
+import "./App.css";
 
 /* 
     Used BEM Naming convention throughout the project.
@@ -11,46 +13,96 @@ import axios from "axios";
 
 function App() {
     const [countries, setCountries] = useState([]);
-    const [country, setCountry] = useState("Worldwide");
+    const [country, setCountry] = useState("worldwide");
+    const [countryInfo, setCountryInfo] = useState({});
+
+    useEffect(() => {
+        const getDataOnFirstLoad = async () => {
+            const countryInfo = await axios.get("https://disease.sh/v3/covid-19/all");
+            setCountryInfo(countryInfo.data);
+        };
+        getDataOnFirstLoad();
+    }, []);
 
     useEffect(() => {
         const getCountries = async () => {
-            const response = await axios.get("https://disease.sh/v3/covid-19/countries");
-            const countries = response.data.map((country) => {
-                return {
-                    name: country.country,
-                    value: country.countryInfo.iso3,
-                    id: country.countryInfo._id,
-                };
-            });
-            setCountries(countries);
+            try {
+                const response = await axios.get("https://disease.sh/v3/covid-19/countries");
+                const countries = await response.data.map((country) => {
+                    return {
+                        name: country.country,
+                        value: country.countryInfo.iso3,
+                    };
+                });
+                setCountries(countries);
+            } catch (error) {
+                console.log(error);
+            }
         };
         getCountries();
     }, []);
 
     const onCountryChange = async (event) => {
         const countryCode = event.target.value;
-        setCountry(countryCode);
+
+        const url =
+            countryCode === "worldwide"
+                ? "https://disease.sh/v3/covid-19/all"
+                : `https://disease.sh/v3/covid-19/countries/${countryCode}`;
+
+        try {
+            const countryData = await axios.get(url);
+            setCountry(countryCode);
+            setCountryInfo(countryData.data);
+            console.log(countryData.data);
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     return (
         <div className="app">
-            <div className="app__header">
-                <h1>COVID-19 Tracker</h1>
-                <FormControl className="app__dropdown">
-                    <Select variant="outlined" value={country} onChange={onCountryChange}>
-                        <MenuItem value="Worldwide">Worldwide</MenuItem>
-                        {countries.map((country) => {
-                            return (
-                                <MenuItem value={country.value} key={country.id}>
-                                    {country.name}
-                                </MenuItem>
-                            );
-                        })}
-                    </Select>
-                </FormControl>
+            <div className="app__leftCol">
+                <div className="app__header">
+                    <h1>COVID-19 Tracker</h1>
+                    <FormControl className="app__dropdown">
+                        <Select variant="outlined" value={country} onChange={onCountryChange}>
+                            <MenuItem value="worldwide">Worldwide</MenuItem>
+                            {countries.map((country, index) => {
+                                return (
+                                    <MenuItem value={country.value} key={index}>
+                                        {country.name}
+                                    </MenuItem>
+                                );
+                            })}
+                        </Select>
+                    </FormControl>
+                </div>
+                <div className="app__stats">
+                    <InfoBox
+                        title="Coronavirus Cases"
+                        cases={countryInfo.todayCases}
+                        total={countryInfo.cases}
+                    />
+                    <InfoBox
+                        title="Recovered"
+                        cases={countryInfo.todayRecovered}
+                        total={countryInfo.recovered}
+                    />
+                    <InfoBox
+                        title="Deaths"
+                        cases={countryInfo.todayDeaths}
+                        total={countryInfo.deaths}
+                    />
+                </div>
+                <Map />
             </div>
-            <div className="app__stats"></div>
+            <Card className="app__rightCol">
+                <CardContent>
+                    <h3>Live Cases by Country</h3>
+                    <h3>Worldwide new cases</h3>
+                </CardContent>
+            </Card>
         </div>
     );
 }
