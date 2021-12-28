@@ -6,6 +6,7 @@ import Map from "../Map/Map";
 import Table from "../Table/Table";
 import LineGraph from "../LineGraph/LineGraph";
 import { sortData } from "../Utils/util";
+import "leaflet/dist/leaflet.css";
 import "./App.css";
 
 /* 
@@ -19,6 +20,9 @@ function App() {
     const [country, setCountry] = useState("worldwide");
     const [countryInfo, setCountryInfo] = useState({});
     const [tableData, setTableData] = useState([]);
+    const [mapCenter, setMapCenter] = useState({ lat: 34.80746, lng: -40.4796 });
+    const [mapZoom, setMapZoom] = useState(3);
+    const [mapCountries, setMapCountries] = useState([]);
 
     useEffect(() => {
         const getDataOnFirstLoad = async () => {
@@ -32,7 +36,7 @@ function App() {
         const getCountries = async () => {
             try {
                 const response = await axios.get("https://disease.sh/v3/covid-19/countries");
-                const countries = await response.data.map((country) => {
+                const data = await response.data.map((country) => {
                     return {
                         name: country.country,
                         value: country.countryInfo.iso3,
@@ -40,8 +44,9 @@ function App() {
                 });
 
                 const sortedData = sortData(response.data);
+                setCountries(data);
+                setMapCountries(response.data);
                 setTableData(sortedData);
-                setCountries(countries);
             } catch (error) {
                 console.log(error);
             }
@@ -59,9 +64,16 @@ function App() {
 
         try {
             const countryData = await axios.get(url);
+            const data = countryData.data;
+
             setCountry(countryCode);
-            setCountryInfo(countryData.data);
-            console.log(countryData.data);
+            setCountryInfo(data);
+            setMapCenter(
+                countryCode === "worldwide"
+                    ? { lat: 34.80746, lng: -40.4796 }
+                    : [data.countryInfo.lat, data.countryInfo.long],
+            );
+            setMapZoom(countryCode === "worldwide" ? 2 : 4);
         } catch (error) {
             console.log(error);
         }
@@ -102,7 +114,7 @@ function App() {
                         total={countryInfo.deaths}
                     />
                 </div>
-                <Map />
+                <Map countries={mapCountries} center={mapCenter} zoom={mapZoom} />
             </div>
             <Card className="app__rightCol">
                 <CardContent>
