@@ -1,17 +1,22 @@
 <div align="center">
-<h1>COVID-19 Tracker</h1>
+<h1>COVID-19 Live Tracker</h1>
+<img src="./src/images/screenshot.png">
 </div>
 
 ## Functionalities
 
--   [x] User Authentication
--   [x] User Authorization
+-   [x] Daily updates about Corona Virus cases Globally and Country wise.
+-   [x] Separate data for each case type; live cases, recovered, deaths.
+-   [x] Separate data for each country in table format.
+-   [x] Graphical Analysis of growth, recovered and death rates with respect to month.
+-   [x] Map Representation (with Interactive Tooltip) of Corona Cases across the Globe.
 
 ## Technologies Used
 
 -   [React](https://reactjs.org/)
 -   [Material UI](https://mui.com/)
 -   [chart.js](https://www.chartjs.org/)
+-   [leaflet](https://leafletjs.com/)
 -   [disease.sh](https://disease.sh/) (Open Disease Data API)
 -   [react-chartjs-2](https://react-chartjs-2.netlify.app/) (React components for Chart.js)
 -   [react-leaflet](https://react-leaflet.js.org/) (React components for Leaflet maps)
