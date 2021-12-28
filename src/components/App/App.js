@@ -36,7 +36,7 @@ function App() {
         const getCountries = async () => {
             try {
                 const response = await axios.get("https://disease.sh/v3/covid-19/countries");
-                const data = await response.data.map((country) => {
+                const countries = await response.data.map((country) => {
                     return {
                         name: country.country,
                         value: country.countryInfo.iso3,
@@ -44,7 +44,7 @@ function App() {
                 });
 
                 const sortedData = sortData(response.data);
-                setCountries(data);
+                setCountries(countries);
                 setMapCountries(response.data);
                 setTableData(sortedData);
             } catch (error) {
@@ -73,7 +73,7 @@ function App() {
                     ? { lat: 34.80746, lng: -40.4796 }
                     : [data.countryInfo.lat, data.countryInfo.long],
             );
-            setMapZoom(countryCode === "worldwide" ? 2 : 4);
+            setMapZoom(countryCode === "worldwide" ? mapZoom : 4);
         } catch (error) {
             console.log(error);
         }
