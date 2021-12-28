@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
-// import { Chart, registerables } from "chart.js";
 import { Line } from "react-chartjs-2";
 import numeral from "numeral";
 import axios from "axios";
-// Chart.register(...registerables);
 
 const options = {
     legend: {
@@ -66,7 +64,7 @@ const buildChartData = (data, casesType = "cases") => {
     return chartData;
 };
 
-const LineGraph = ({ casesType }) => {
+const LineGraph = ({ casesType = "cases", ...props }) => {
     const [data, setData] = useState({});
 
     useEffect(() => {
@@ -81,7 +79,7 @@ const LineGraph = ({ casesType }) => {
     }, [casesType]);
 
     return (
-        <div>
+        <div className={props.className}>
             {data?.length > 0 && (
                 <Line
                     data={{
