@@ -13,7 +13,8 @@
 -   [Material UI](https://mui.com/)
 -   [disease.sh](https://disease.sh/) (Open Disease Data API)
 -   [react-chartjs-2](https://react-chartjs-2.netlify.app/) (React components for Chart.js)
--   [React Leaflet](https://react-leaflet.js.org/) (React components for Leaflet maps)
+-   [react-leaflet](https://react-leaflet.js.org/) (React components for Leaflet maps)
+-   [chart.js](https://www.chartjs.org/)
 
 ## Installation
 
