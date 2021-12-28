@@ -1,9 +1,9 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Chart, registerables } from "chart.js";
+// import { Chart, registerables } from "chart.js";
 import { Line } from "react-chartjs-2";
 import numeral from "numeral";
-Chart.register(...registerables);
+import axios from "axios";
+// Chart.register(...registerables);
 
 const options = {
     legend: {
@@ -25,7 +25,7 @@ const options = {
         },
     },
     scales: {
-        x: [
+        xAxes: [
             {
                 type: "time",
                 time: {
@@ -34,7 +34,7 @@ const options = {
                 },
             },
         ],
-        y: [
+        yAxes: [
             {
                 gridLines: {
                     display: false,
@@ -66,7 +66,7 @@ const buildChartData = (data, casesType = "cases") => {
     return chartData;
 };
 
-const LineGraph = () => {
+const LineGraph = ({ casesType }) => {
     const [data, setData] = useState({});
 
     useEffect(() => {
@@ -74,27 +74,26 @@ const LineGraph = () => {
             const response = await axios.get(
                 "https://disease.sh/v3/covid-19/historical/all?lastdays=120",
             );
-            // console.log(response.data);
-            let chartData = buildChartData(response.data);
+            let chartData = buildChartData(response.data, casesType);
             setData(chartData);
         };
         getData();
-    }, []);
+    }, [casesType]);
 
     return (
         <div>
             {data?.length > 0 && (
                 <Line
-                    options={options}
                     data={{
                         datasets: [
                             {
                                 backgroundColor: "rgba(204, 16, 52, 0.5)",
-                                borderColor: "#cc1034",
+                                borderColor: "#CC1034",
                                 data: data,
                             },
                         ],
                     }}
+                    options={options}
                 />
             )}
         </div>
